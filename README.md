@@ -1,87 +1,55 @@
-# maestro - main version
-A stable version of MAESTRO. (H. Kwon et al., Understanding Reuse, Performance, and Hardware Cost of DNN
-Dataflows: A Data-Centric Approach, MICRO 2019)
+# REMAP: A Open-source Framework for Automating the Design of CNN Accelerators.
+This is the implementation of the paper "REMAP: A Spatiotemporal CNN Accelerator Optimization Methodology and Toolkit Thereof". 
+# What is MAESTRO?
+Designing CNN accelerators is getting more difficult owing to the fast-increasing types of CNN models.
+Some approaches use constant dataflow and micro-architecture that have lower design comlexity.
+However, these accelerators are difficult to adapt with the highly-diverse CNN models and often suffer from low PE utilization.
+Some other accelerators resort to reconfigurable devices such as FPGA and CGRA to support flexible dataflows 
+in order to to fit diverse CNN layers. 
+However, layer-by-layer processing may require more energy for frequent reconfiguration and off-chip DDR access. 
+In this work, we introduce a reconfigurable pipeline accelerator (RPA) that can reduce the latency and DDR access by pipelining the compuptation of CNN layers. 
+Although there has been several researches that try to speedup the design process by automatically exploring sub-set of the accelerator design space,
+identifying an available automated design tool that can effectively find the complete and optimal design scheme remains a problem, especially for the novel RPA architecture type. 
+Unfortunately, comprehensive exploration of the whole design space faces an excessive large searching space. 
+To tackle this problem, we propose REMAP, a toolkit for designing CNN accelerators based on the Monte Carlo Tree Search (MCTS) method and MAESTRO cost model. To efficiently search the huge design space, we propose several methods to improve searching efficiency. Evaluations show that REMAP significantly outperforms some state-of-the-art approaches; compared with GAMMA, it achieves an average speed increase of $14.75\times$, and an energy reduction of $45.45\%$; it also achieves a speed increase of $32.6\times$ against ConfuciuX on MobileNetV2 and ResNet50. 
+We also show a FPGA accelerator implementation which is based on REMAP's search result, and it achieves high performance in real-time CNN tasks. 
+This indicates that REMAP can provide high-quality design exploration with valuable insights and useful architecture design guidances.
 
-# Package Dependences
-C++ compiler (g++)
+### Setup ###
+* Clone Repo
+```
+git clone https://github.com/jackboranzhao/REMAP.git
+```
+* Install Anaconda software and create virtual env
+```
+curl -O https://repo.anaconda.com/archive/Anaconda3-2020.11-Linux-x86_64.sh
+bash ./Anaconda3-2020.11-Linux-x86_64.sh
+conda create -n rl_ven python=3.6.9 anaconda
+conda activate rl_ven
+```
+* Install requirement
+   
+```
+pip install -r requirements.txt
+```
 
-SCONS build system (scons)
+### Run ###
+* Run REMAP
+```
+Python3 Env_Maestro_mcts.py
+```
 
-Boost libarary (libboost-all-dev)
+### Contributor ###
+* Boran Zhao
+* Tian Xia
+* Haiming Zhai
+* Fulun Ma
+* Yan Du
+* Hanzhi Chang
+* Wenzhe Zhao
+* Pengju Ren (Corresponding Author)
 
-Python 2.7 or later
-
-# How to compile the code
-> scons
-
-# How to run the program
-> ./run.sh
-
-# How to change the parameters
-Change the contents of "run.sh" For parameters other than listed below, please ignore it; active development is going on them so correct functionailty is not guaranteed.
-
---print_res=true/false : If set true, MAESTRO prints out detailed cost information to the screen
-
---print_res_csv_file=true/false : If set true, MAESTRO prints out a csv file that contains various statistics
-
---print_log_file=true/false : If set true, MAESTRO prints out a log file that contains various information of detailed computation patterns to "log.txt"
-
---DFSL_file='data/DFSL_description/Resnet50_dla.m' : Specify the target dataflow and layer description file
-
---noc_bw=64 : NoC bandwidth
-
---noc_hop_latency=1 : NoC latency per hops
-
---noc_mc_support=true : NoC multicast support (In current dev version it's always on)
-
---num_pes=256 : Number of PEs
-
---num_pe_alus=1 : PE ALU vector width
-
---l1_size=32 : l1 buffer size
-
---l2_size=512 : l2 buffer size
-
-# How to change the DNN model and dataflow
-Create a DFSL file under "data/DFSL_description" and point the file using --DFSL_file parameter in "run.sh"
-
-For syntax of the DFSL file, please refer to other DFSL files in data/DFSL_description.
-
-# How to convert Pytorch model to MAESTRO dataflow
-> cd data/pytorch_example
-
-Use [torchvision.models](https://pytorch.org/docs/stable/torchvision/models.html)
-## Run with default setting
-> python torch_to_maestro.py
-## Run MAESTRO with the converted dataflow file
-Change the contents of "run.sh"
-
---DFSL_file='data/pytorch_example/out/out.m'
-
-Run MAESTRO
-
-> ./run.sh
-### Change the input arguement
-> python torch_to_maestro.py --input_size 3,224,224 --model mobilenet_v2 --dataflow os --outfile out.m 
-
---input_size: the input image size of the first layer
-
---model: the model name from torchvision.models
-
---dataflow: the dataflow for each layer, choose from "os, ws, rs, dla"
-
---outfile: the MAESTRO dataflow output file name
-
-# Changes from the original version
-
-- For dataflows with multi-level hierarchies (i.e., at least one cluster directive in a mapping description) now recursively models all the edge cases in each hierarchy level, which leads to more precise cost estimation compared to the original version.
-
-
-# Contributors
-Hyoukjun Kwon (hyoukjun@gatech.edu): Main developer, developed core framework and functionalities
-
-Prasanth Chatarasi (cprasanth@gatech.edu): Improved APIs
-
-Felix (Sheng-Chun) Kao (felix@gatech.edu): Implemented Pytorch front-end
-
-Geonhwa Jeong (geonhwa.jeong@gatech.edu): Implemented Keras front-end
+### Citation ###
+```
+To appear on TCAD'22
+```
