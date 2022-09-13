@@ -1,0 +1,76 @@
+index,module,layer_name,input_layer,input_layer_size,conv_type,kernel_size,strides,padding,bias_fold_size,clip,output_layer_size,relu
+1,conv,conv1,image_input,"(1,360,640,3)",conv,"(24,3,3,3)",2,SAME,24,10,"(1,180,320,24)",1
+2,pool,pool1,conv1,"(1,180,320,24)",pool,"(2,2)",2,SAME,0,0,"(1,90,160,24)",0
+3,module d,stage_1_1_left_a,pool1,"(1,90,160,24)",depthwise_conv,"(1,3,3,24)",2,SAME,24,5,"(1,45,80,24)",0
+4,,stage_1_1_left_b,stage_1_1_left_a,"(1,45,80,24)",conv,"(64,1,1,24)",1,SAME,64,7,"(1,45,80,64)",1
+5,,stage_1_1_right_a,pool1,"(1,90,160,24)",conv,"(64,1,1,24)",1,SAME,64,7,"(1,90,160,64)",1
+6,,stage_1_1_right_b,stage_1_1_right_a,"(1,90,160,64)",depthwise_conv,"(1,3,3,64)",2,SAME,64,6,"(1,45,80,64)",0
+7,,stage_1_1_right_c,stage_1_1_right_b,"(1,45,80,64)",conv,"(64,1,1,64)",1,SAME,64,6,"(1,45,80,64)",1
+8,module c,stage_2_1_right_a,stage_1_1_clip,"(1,45,80,128)",conv,"(64,1,1,64)",1,SAME,64,7,"(1,45,80,64)",1
+9,,stage_2_1_right_b,stage_2_1_right_a,"(1,45,80,64)",depthwise_conv,"(1,3,3,64)",1,SAME,64,5,"(1,45,80,64)",0
+10,,stage_2_1_right_c,stage_2_1_right_b,"(1,45,80,64)",conv,"(64,1,1,64)",1,SAME,64,8,"(1,45,80,64)",1
+11,module c,stage_2_2_right_a,stage_2_1_clip,"(1,45,80,128)",conv,"(64,1,1,64)",1,SAME,64,7,"(1,45,80,64)",1
+12,,stage_2_2_right_b,stage_2_2_right_a,"(1,45,80,64)",depthwise_conv,"(1,3,3,64)",1,SAME,64,5,"(1,45,80,64)",0
+13,,stage_2_2_right_c,stage_2_2_right_b,"(1,45,80,64)",conv,"(64,1,1,64)",1,SAME,64,8,"(1,45,80,64)",1
+14,module c,stage_2_3_right_a,stage_2_2_clip,"(1,45,80,128)",conv,"(64,1,1,64)",1,SAME,64,7,"(1,45,80,64)",1
+15,,stage_2_3_right_b,stage_2_3_right_a,"(1,45,80,64)",depthwise_conv,"(1,3,3,64)",1,SAME,64,6,"(1,45,80,64)",0
+16,,stage_2_3_right_c,stage_2_3_right_b,"(1,45,80,64)",conv,"(64,1,1,64)",1,SAME,64,8,"(1,45,80,64)",1
+17,module d,stage_3_1_left_a,stage_2_3,"(1,45,80,128)",depthwise_conv,"(1,3,3,128)",2,SAME,128,6,"(1,23,40,128)",0
+18,,stage_3_1_left_b,stage_3_1_left_a,"(1,23,40,128)",conv,"(128,1,1,128)",1,SAME,128,7,"(1,23,40,128)",1
+19,,stage_3_1_right_a,stage_2_3,"(1,45,80,128)",conv,"(128,1,1,128)",1,SAME,128,8,"(1,45,80,128)",1
+20,,stage_3_1_right_b,stage_3_1_right_a,"(1,45,80,128)",depthwise_conv,"(1,3,3,128)",2,SAME,128,6,"(1,23,40,128)",0
+21,,stage_3_1_right_c,stage_3_1_right_b,"(1,23,40,128)",conv,"(128,1,1,128)",1,SAME,128,8,"(1,23,40,128)",1
+22,module c,stage_4_1_right_a,stage_3_1_clip,"(1,23,40,256)",conv,"(128,1,1,128)",1,SAME,128,9,"(1,23,40,128)",1
+23,,stage_4_1_right_b,stage_4_1_right_a,"(1,23,40,128)",depthwise_conv,"(1,3,3,128)",1,SAME,128,5,"(1,23,40,128)",0
+24,,stage_4_1_right_c,stage_4_1_right_b,"(1,23,40,128)",conv,"(128,1,1,128)",1,SAME,128,7,"(1,23,40,128)",1
+25,module c,stage_4_2_right_a,stage_4_1_clip,"(1,23,40,256)",conv,"(128,1,1,128)",1,SAME,128,9,"(1,23,40,128)",1
+26,,stage_4_2_right_b,stage_4_2_right_a,"(1,23,40,128)",depthwise_conv,"(1,3,3,128)",1,SAME,128,5,"(1,23,40,128)",0
+27,,stage_4_2_right_c,stage_4_2_right_b,"(1,23,40,128)",conv,"(128,1,1,128)",1,SAME,128,7,"(1,23,40,128)",1
+28,module c,stage_4_3_right_a,stage_4_2_clip,"(1,23,40,256)",conv,"(128,1,1,128)",1,SAME,128,9,"(1,23,40,128)",1
+29,,stage_4_3_right_b,stage_4_3_right_a,"(1,23,40,128)",depthwise_conv,"(1,3,3,128)",1,SAME,128,6,"(1,23,40,128)",0
+30,,stage_4_3_right_c,stage_4_3_right_b,"(1,23,40,128)",conv,"(128,1,1,128)",1,SAME,128,7,"(1,23,40,128)",1
+31,module c,stage_4_4_right_a,stage_4_3_clip,"(1,23,40,256)",conv,"(128,1,1,128)",1,SAME,128,8,"(1,23,40,128)",1
+32,,stage_4_4_right_b,stage_4_4_right_a,"(1,23,40,128)",depthwise_conv,"(1,3,3,128)",1,SAME,128,6,"(1,23,40,128)",0
+33,,stage_4_4_right_c,stage_4_4_right_b,"(1,23,40,128)",conv,"(128,1,1,128)",1,SAME,128,8,"(1,23,40,128)",1
+34,module c,stage_4_5_right_a,stage_4_4_clip,"(1,23,40,256)",conv,"(128,1,1,128)",1,SAME,128,8,"(1,23,40,128)",1
+35,,stage_4_5_right_b,stage_4_5_right_a,"(1,23,40,128)",depthwise_conv,"(1,3,3,128)",1,SAME,128,6,"(1,23,40,128)",0
+36,,stage_4_5_right_c,stage_4_5_right_b,"(1,23,40,128)",conv,"(128,1,1,128)",1,SAME,128,8,"(1,23,40,128)",1
+37,module c,stage_4_6_right_a,stage_4_5_clip,"(1,23,40,256)",conv,"(128,1,1,128)",1,SAME,128,8,"(1,23,40,128)",1
+38,,stage_4_6_right_b,stage_4_6_right_a,"(1,23,40,128)",depthwise_conv,"(1,3,3,128)",1,SAME,128,6,"(1,23,40,128)",0
+39,,stage_4_6_right_c,stage_4_6_right_b,"(1,23,40,128)",conv,"(128,1,1,128)",1,SAME,128,8,"(1,23,40,128)",1
+40,module c,stage_4_7_right_a,stage_4_6_clip,"(1,23,40,256)",conv,"(128,1,1,128)",1,SAME,128,6,"(1,23,40,128)",1
+41,,stage_4_7_right_b,stage_4_7_right_a,"(1,23,40,128)",depthwise_conv,"(1,3,3,128)",1,SAME,128,7,"(1,23,40,128)",0
+42,,stage_4_7_right_c,stage_4_7_right_b,"(1,23,40,128)",conv,"(128,1,1,128)",1,SAME,128,8,"(1,23,40,128)",1
+43,module d,stage_5_1_left_a,stage_4_7,"(1,23,40,256)",depthwise_conv,"(1,3,3,256)",2,SAME,256,7,"(1,12,20,256)",0
+44,,stage_5_1_left_b,stage_5_1_left_a,"(1,12,20,256)",conv,"(256,1,1,256)",1,SAME,256,7,"(1,12,20,256)",1
+45,,stage_5_1_right_a,stage_4_7,"(1,23,40,256)",conv,"(256,1,1,256)",1,SAME,256,8,"(1,23,40,256)",1
+46,,stage_5_1_right_b,stage_5_1_right_a,"(1,23,40,256)",depthwise_conv,"(1,3,3,256)",2,SAME,256,6,"(1,12,20,256)",0
+47,,stage_5_1_right_c,stage_5_1_right_b,"(1,12,20,256)",conv,"(256,1,1,256)",1,SAME,256,8,"(1,12,20,256)",1
+48,module c,stage_6_1_right_a,stage_5_1_clip,"(1,12,20,512)",conv,"(256,1,1,256)",1,SAME,256,9,"(1,12,20,256)",1
+49,,stage_6_1_right_b,stage_6_1_right_a,"(1,12,20,256)",depthwise_conv,"(1,3,3,256)",1,SAME,256,6,"(1,12,20,256)",0
+50,,stage_6_1_right_c,stage_6_1_right_b,"(1,12,20,256)",conv,"(256,1,1,256)",1,SAME,256,8,"(1,12,20,256)",1
+51,module c,stage_6_2_right_a,stage_6_1_clip,"(1,12,20,512)",conv,"(256,1,1,256)",1,SAME,256,9,"(1,12,20,256)",1
+52,,stage_6_2_right_b,stage_6_2_right_a,"(1,12,20,256)",depthwise_conv,"(1,3,3,256)",1,SAME,256,5,"(1,12,20,256)",0
+53,,stage_6_2_right_c,stage_6_2_right_b,"(1,12,20,256)",conv,"(256,1,1,256)",1,SAME,256,9,"(1,12,20,256)",1
+54,module c,stage_6_3_right_a,stage_6_2_clip,"(1,12,20,512)",conv,"(256,1,1,256)",1,SAME,256,8,"(1,12,20,256)",1
+55,,stage_6_3_right_b,stage_6_3_right_a,"(1,12,20,256)",depthwise_conv,"(1,3,3,256)",1,SAME,256,5,"(1,12,20,256)",0
+56,,stage_6_3_right_c,stage_6_3_right_b,"(1,12,20,256)",conv,"(256,1,1,256)",1,SAME,256,8,"(1,12,20,256)",1
+57,module c,stage_6_4_right_a,stage_6_3_clip,"(1,12,20,512)",conv,"(256,1,1,256)",1,SAME,256,8,"(1,12,20,256)",1
+58,,stage_6_4_right_b,stage_6_4_right_a,"(1,12,20,256)",depthwise_conv,"(1,3,3,256)",1,SAME,256,7,"(1,12,20,256)",0
+59,,stage_6_4_right_c,stage_6_4_right_b,"(1,12,20,256)",conv,"(256,1,1,256)",1,SAME,256,8,"(1,12,20,256)",1
+60,module c,stage_6_5_right_a,stage_6_4_clip,"(1,12,20,512)",conv,"(256,1,1,256)",1,SAME,256,8,"(1,12,20,256)",1
+61,,stage_6_5_right_b,stage_6_5_right_a,"(1,12,20,256)",depthwise_conv,"(1,3,3,256)",1,SAME,256,6,"(1,12,20,256)",0
+62,,stage_6_5_right_c,stage_6_5_right_b,"(1,12,20,256)",conv,"(256,1,1,256)",1,SAME,256,9,"(1,12,20,256)",1
+63,module c,stage_6_6_right_a,stage_6_5_clip,"(1,12,20,512)",conv,"(256,1,1,256)",1,SAME,256,7,"(1,12,20,256)",1
+64,,stage_6_6_right_b,stage_6_6_right_a,"(1,12,20,256)",depthwise_conv,"(1,3,3,256)",1,SAME,256,7,"(1,12,20,256)",0
+65,,stage_6_6_right_c,stage_6_6_right_b,"(1,12,20,256)",conv,"(256,1,1,256)",1,SAME,256,7,"(1,12,20,256)",1
+66,module c,stage_6_7_right_a,stage_6_6_clip,"(1,12,20,512)",conv,"(256,1,1,256)",1,SAME,256,7,"(1,12,20,256)",1
+67,,stage_6_7_right_b,stage_6_7_right_a,"(1,12,20,256)",depthwise_conv,"(1,3,3,256)",1,SAME,256,6,"(1,12,20,256)",0
+68,,stage_6_7_right_c,stage_6_7_right_b,"(1,12,20,256)",conv,"(256,1,1,256)",1,SAME,256,8,"(1,12,20,256)",1
+69,module c,stage_6_8_right_a,stage_6_7_clip,"(1,12,20,512)",conv,"(256,1,1,256)",1,SAME,256,9,"(1,12,20,256)",1
+70,,stage_6_8_right_b,stage_6_8_right_a,"(1,12,20,256)",depthwise_conv,"(1,3,3,256)",1,SAME,256,6,"(1,12,20,256)",0
+71,,stage_6_8_right_c,stage_6_8_right_b,"(1,12,20,256)",conv,"(256,1,1,256)",1,SAME,256,8,"(1,12,20,256)",1
+72,module c,stage_6_9_right_a,stage_6_8_clip,"(1,12,20,512)",conv,"(256,1,1,256)",1,SAME,256,8,"(1,12,20,256)",1
+73,,stage_6_9_right_b,stage_6_9_right_a,"(1,12,20,256)",depthwise_conv,"(1,3,3,256)",1,SAME,256,5,"(1,12,20,256)",0
+74,,stage_6_9_right_c,stage_6_9_right_b,"(1,12,20,256)",conv,"(256,1,1,256)",1,SAME,256,8,"(1,12,20,256)",1
+75,conv,preds,stage_6_9,"(1,12,20,512)",conv,"(153,3,3,512)",1,SAME,153,11,"(1,12,20,153)",0

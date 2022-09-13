@@ -1,0 +1,4 @@
+index,net_name,layer_name,K,C,R,S,Y,X,type,stride_x,stride_y
+0,ResNet50,CONV1,64,3,7,7,224,224,CONV,2,2
+1,ResNet50,CONV2_3_1,128,64,1,1,56,56,CONV,1,1
+2,ResNet50,CONV4_1_3,512,256,1,1,14,14,CONV,1,1
