@@ -1,5 +1,7 @@
 # REMAP: A Open-source Framework for Automating the Design of CNN Accelerators.
 This is the implementation of the paper "REMAP: A Spatiotemporal CNN Accelerator Optimization Methodology and Toolkit Thereof". 
+![REMAP_Framework](./IMG/remap_top.png)
+
 # What is MAESTRO?
 Designing CNN accelerators is getting more difficult owing to the fast-increasing types of CNN models.
 Some approaches use constant dataflow and micro-architecture that have lower design comlexity.
