@@ -5,6 +5,20 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Python: Current File",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Python: Env_Maestro_mcts.py",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal"
+        },
+        {
             "name": "(gdb) Launch",
             "type": "cppdbg",
             "request": "launch",
@@ -22,6 +36,18 @@
                     "--num_pes=256",
                     "--print_design_space=true",
                     "--msg_print_lv=0",
+                "--print_res=true",
+                "--print_res_csv_file=true",
+                "--print_log_file=false",
+                "--DFSL_file='data/DFSL_description/test.m'",
+                "--noc_bw=32",
+                "--noc_hops=1",
+                "--noc_hop_latency=1",
+                "--l1_size=5120",
+                "--l2_size=1024000",
+                "--num_pes=168",
+                "--print_design_space=true",
+                "--msg_print_lv=0",
             ],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
